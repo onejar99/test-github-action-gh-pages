@@ -14,7 +14,7 @@ jobs:
       MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}
       USER_NAME   : onejar99
       USER_EMAIL  : onejar99@gmail.com
-      PUBLISH_DIR : ./dist
+      PUBLISH_DIR : book-src/_book
     runs-on: ubuntu-latest
     steps:
     - name: Checkout 🛎️
@@ -32,7 +32,7 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: book-src/_book
+        FOLDER: $PUBLISH_DIR
       # run: |
       #   cd $PUBLISH_DIR
       #   git init

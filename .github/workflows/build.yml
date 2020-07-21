@@ -1,21 +1,22 @@
 name: Build and deploy gh-pages
 
-# workflow trigger timing (EX: master branch 有 push 事件發生時)
 on:
   push:
     branches:
       - master
+    paths:
+
 
 jobs:
-  build-and-deploy:
+  build-and-deploy-book1:
     name: Build and deploy gh-pages
+    on:
+      paths:
+      - 'book_src_1/*'
     runs-on: ubuntu-latest
     env:
       MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}
-      # USER_NAME   : onejar99
-      # USER_EMAIL  : onejar99@gmail.com
-      # SRC_DIR     : book_src
-      # PUBLISH_DIR : book_src/_book
+
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2.3.1
@@ -26,7 +27,7 @@ jobs:
       run: |
         echo "pwd=[$(pwd)]"
         ls -al
-        cd book_src
+        cd book_src_1
         docker run --rm -p 4000:4000 -v $(pwd):/gitbook onejar99/gitbook:light "gitbook init && gitbook install && gitbook build"
 
     - name: Deploy 🚀
@@ -34,16 +35,5 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: book_src/_book
-      # run: |g
-      #   cd $PUBLISH_DIR
-      #   git init
-      #   git config --local user.name $USER_NAME
-      #   git config --local user.email $USER_EMAIL
-      #   git status
-      #   git remote add origin https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
-      #   git checkout -b gh-pages
-      #   git add --all
-      #   git commit -m "deploy to Github pages"
-      #   git push origin gh-pages -f
-      #   echo Deploy gh-pages completed! 💪💯
+        FOLDER: book_src_1/_book
+

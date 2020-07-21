@@ -1,18 +1,17 @@
-name: Build and deploy gh-pages
+name: Build and deploy gh-pages - Book 1
 
 on:
   push:
     branches:
       - master
     paths:
+      - 'book_src_1/*'
+
 
 
 jobs:
   build-and-deploy-book1:
     name: Build and deploy gh-pages
-    on:
-      paths:
-      - 'book_src_1/*'
     runs-on: ubuntu-latest
     env:
       MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}

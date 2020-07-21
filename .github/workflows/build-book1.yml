@@ -8,14 +8,16 @@ on:
       - 'book_src_1/*'
       - '.github/workflows/build-book1.yml'
 
-
-
 jobs:
   build-and-deploy-book1:
     name: Build and deploy gh-pages
     runs-on: ubuntu-latest
     env:
       MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}
+      USER_NAME   : onejar99
+      USER_EMAIL  : onejar99@gmail.com
+      BOOK_DIR    : book_src_1
+      OUTPUT_DIR  : book_src_1/_book
 
     steps:
     - name: Checkout 🛎️
@@ -27,13 +29,45 @@ jobs:
       run: |
         echo "pwd=[$(pwd)]"
         ls -al
-        cd book_src_1
+        cd $BOOK_DIR
         docker run --rm -p 4000:4000 -v $(pwd):/gitbook onejar99/gitbook:light "gitbook init && gitbook install && gitbook build"
 
-    - name: Deploy 🚀
-      uses: JamesIves/github-pages-deploy-action@3.5.7
-      with:
-        GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: book_src_1/_book
+    # - name: Deploy 🚀
+    #   uses: JamesIves/github-pages-deploy-action@3.5.7
+    #   with:
+    #     GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
+    #     BRANCH: gh-pages
+    #     FOLDER: book_src_1/_book
 
+    - name: Deploy 🚀
+      run: |
+        echo "HOME=[$HOME]"
+        echo "GITHUB_RUN_ID=[$GITHUB_RUN_ID]"
+        echo "GITHUB_REPOSITORY=[$GITHUB_REPOSITORY]"
+        echo "GITHUB_SHA=[$GITHUB_SHA]"
+        echo "MY_SECRET=[$MY_SECRET]"
+        echo "USER_NAME=[$USER_NAME]"
+        echo "USER_EMAIL=[$USER_EMAIL]"
+        echo "OUTPUT_DIR=[$OUTPUT_DIR]"
+        echo "pwd=[$(pwd)]"
+        ls -al
+
+        git clone https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
+        cd $GITHUB_REPOSITORY
+        git checkout -b gh-pages
+        ls -al
+
+        cd $HOME
+        ls -al
+        rm -rf $GITHUB_REPOSITORY/$BOOK_DIR
+        cp -rf $OUTPUT_DIR $GITHUB_REPOSITORY/$BOOK_DIR
+        cd $GITHUB_REPOSITORY
+        ls -al
+
+        git config --local user.name $USER_NAME
+        git config --local user.email $USER_EMAIL
+        git status
+        git add --all
+        git commit -m "Deploy to Github Pages 🥂 (from $GITHUB_SHA)"
+        git push origin gh-pages -f
+        echo Deploy gh-pages completed! 💪💯

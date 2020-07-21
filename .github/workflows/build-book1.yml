@@ -6,6 +6,7 @@ on:
       - master
     paths:
       - 'book_src_1/*'
+      - '.github/workflows/build-book1.yml'
 
 
 

@@ -23,6 +23,8 @@ jobs:
 
     - name: Build 🔧
       run: |
+        echo "pwd=[$(pwd)]"
+        ls -al
         cd book-src
         docker run --rm -p 4000:4000 -v $(pwd):/gitbook onejar99/gitbook:light "gitbook init && gitbook install && gitbook build"
 

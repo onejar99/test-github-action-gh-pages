@@ -50,7 +50,8 @@ jobs:
         echo "USER_EMAIL=[$USER_EMAIL]"
         echo "OUTPUT_DIR=[$OUTPUT_DIR]"
         echo "pwd=[$(pwd)]"
-        export GH_PAGES_FOLDER=$GITHUB_REPOSITORY_ghpages
+        GH_PAGES_FOLDER=$GITHUB_REPOSITORY_ghpages
+        export GH_PAGES_FOLDER
         echo "GH_PAGES_FOLDER=[$GH_PAGES_FOLDER]"
         ls -al
 

@@ -42,6 +42,7 @@ jobs:
     - name: Deploy 🚀
       run: |
         echo "HOME=[$HOME]"
+        echo "GITHUB_WORKSPACE=[$GITHUB_WORKSPACE]"
         echo "GITHUB_RUN_ID=[$GITHUB_RUN_ID]"
         echo "GITHUB_REPOSITORY=[$GITHUB_REPOSITORY]"
         echo "GITHUB_SHA=[$GITHUB_SHA]"

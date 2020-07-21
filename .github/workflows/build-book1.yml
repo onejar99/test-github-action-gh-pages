@@ -50,18 +50,15 @@ jobs:
         echo "USER_EMAIL=[$USER_EMAIL]"
         echo "OUTPUT_DIR=[$OUTPUT_DIR]"
         echo "pwd=[$(pwd)]"
+        export GH_PAGES_FOLDER=$GITHUB_REPOSITORY_ghpages
+        echo "GH_PAGES_FOLDER=[$GH_PAGES_FOLDER]"
         ls -al
 
-        git clone https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git
-        cd $GITHUB_REPOSITORY
-        git checkout -b gh-pages
+        git clone -b gh-pages --single-branch https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git $GH_PAGES_FOLDER
         ls -al
-
-        cd $HOME
-        ls -al
-        rm -rf $GITHUB_REPOSITORY/$BOOK_DIR
-        cp -rf $OUTPUT_DIR $GITHUB_REPOSITORY/$BOOK_DIR
-        cd $GITHUB_REPOSITORY
+        rm -rf $GH_PAGES_FOLDER/$BOOK_DIR
+        cp -rf $OUTPUT_DIR $GH_PAGES_FOLDER/$BOOK_DIR
+        cd $GH_PAGES_FOLDER
         ls -al
 
         git config --local user.name $USER_NAME

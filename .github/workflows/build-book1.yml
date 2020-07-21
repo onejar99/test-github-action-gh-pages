@@ -51,12 +51,12 @@ jobs:
         echo "OUTPUT_DIR=[$OUTPUT_DIR]"
         echo "whoami=[$(whoami)]"
         echo "pwd=[$(pwd)]"
-        GH_PAGES_FOLDER=$GITHUB_REPOSITORY_ghpages
+        GH_PAGES_FOLDER=${GITHUB_REPOSITORY}_ghpages
         export GH_PAGES_FOLDER
         echo "GH_PAGES_FOLDER=[$GH_PAGES_FOLDER]"
         ls -al
 
-        git clone -b gh-pages --single-branch https://$MY_SECRET@github.com/$GITHUB_REPOSITORY.git $GH_PAGES_FOLDER
+        git clone -b gh-pages --single-branch https://${MY_SECRET}@github.com/${GITHUB_REPOSITORY}.git ${GH_PAGES_FOLDER}
         ls -al
         rm -rf $GH_PAGES_FOLDER/$BOOK_DIR
         cp -rf $OUTPUT_DIR $GH_PAGES_FOLDER/$BOOK_DIR

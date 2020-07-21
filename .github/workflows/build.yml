@@ -14,7 +14,7 @@ jobs:
       MY_SECRET   : ${{secrets.GH_ACCESS_TOKEN}}
       USER_NAME   : onejar99
       USER_EMAIL  : onejar99@gmail.com
-      PUBLISH_DIR : book-src/_book
+      SRC_DIR     : book_src
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2.3.1
@@ -25,7 +25,7 @@ jobs:
       run: |
         echo "pwd=[$(pwd)]"
         ls -al
-        cd book-src
+        cd $SRC_DIR
         docker run --rm -p 4000:4000 -v $(pwd):/gitbook onejar99/gitbook:light "gitbook init && gitbook install && gitbook build"
 
     - name: Deploy 🚀
@@ -33,7 +33,7 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: $PUBLISH_DIR
+        FOLDER: $SRC_DIR/_book
       # run: |g
       #   cd $PUBLISH_DIR
       #   git init

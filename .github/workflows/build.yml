@@ -34,7 +34,7 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: ${{ PUBLISH_DIR }}
+        FOLDER: book_src/_book
       # run: |g
       #   cd $PUBLISH_DIR
       #   git init

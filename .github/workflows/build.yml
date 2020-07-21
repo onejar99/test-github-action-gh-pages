@@ -15,7 +15,6 @@ jobs:
       USER_NAME   : onejar99
       USER_EMAIL  : onejar99@gmail.com
       PUBLISH_DIR : book-src/_book
-    runs-on: ubuntu-latest
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2.3.1

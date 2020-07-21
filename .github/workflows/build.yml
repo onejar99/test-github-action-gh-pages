@@ -19,8 +19,8 @@ jobs:
     steps:
     - name: Checkout 🛎️
       uses: actions/checkout@v2.3.1
-        with:
-          persist-credentials: false
+      with:
+        persist-credentials: false
 
     - name: Build 🔧
       run: |
@@ -33,7 +33,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_ACCESS_TOKEN }}
         BRANCH: gh-pages
         FOLDER: $PUBLISH_DIR
-      # run: |
+      # run: |g
       #   cd $PUBLISH_DIR
       #   git init
       #   git config --local user.name $USER_NAME

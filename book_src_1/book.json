@@ -30,7 +30,7 @@
           }
       },
       "edit-link": {
-        "base": "https://github.com/onejar99/test-github-action-gh-pages/blob/master/book-src/",
+        "base": "https://github.com/onejar99/test-github-action-gh-pages/blob/master/book_src_1/",
         "label": "Edit This Page"
       },
       "ga": {
